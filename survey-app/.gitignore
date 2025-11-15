@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.pyc
+.env
+*.egg-info/
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.backup
+*.tfstate.lock.info
+.terraform.lock.hcl
+crash.log
+*.tfvars
+tfplan
+*.zip
+
+# macOS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/

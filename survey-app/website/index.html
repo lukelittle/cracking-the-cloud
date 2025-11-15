@@ -1,0 +1,63 @@
+<!--
+index.html - Main Survey Page
+
+WHAT THIS FILE DOES:
+This is the main landing page of the survey where users vote on their cloud deployment experience.
+
+KEY CONCEPTS FOR STUDENTS:
+1. HTML Structure: Semantic markup using proper heading hierarchy
+2. External Resources: Linking CSS and JavaScript files
+3. Event Handlers: onclick attributes that call JavaScript functions
+4. Responsive Design: viewport meta tag for mobile compatibility
+5. DOM Elements: div with id for JavaScript to update content
+
+WORKFLOW:
+User lands on page → Clicks a vote button → onclick calls vote() function in main.js →
+JavaScript sends data to API → Response updates the message div → User sees confirmation
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- META TAGS: Information about the webpage -->
+    
+    <!-- Character encoding - UTF-8 supports all languages and symbols -->
+    <meta charset="UTF-8">
+    
+    <!-- Viewport settings for responsive design on mobile devices
+         width=device-width: Match screen width
+         initial-scale=1.0: Don't zoom in or out by default -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Title shown in browser tab -->
+    <title>Cracking the Cloud - Survey</title>
+    
+    <!-- Link to external CSS stylesheet for styling -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- MAIN CONTAINER: Centers and styles all content -->
+    <div class="container">
+        <!-- Page headings using semantic HTML -->
+        <h1>Hello, Charlotte!</h1>
+        <h2>Have you ever deployed a website before?</h2>
+        
+        <!-- VOTE BUTTONS: Each button calls vote() with a different option
+             onclick attribute triggers JavaScript when button is clicked
+             The vote() function is defined in main.js -->
+        <button class="vote-btn" onclick="vote('no')">No</button>
+        <button class="vote-btn" onclick="vote('aws')">Yes (on AWS)</button>
+        <button class="vote-btn" onclick="vote('other')">Yes (on another platform)</button>
+        
+        <!-- MESSAGE DIV: JavaScript updates this to show vote confirmation or errors
+             The id attribute allows JavaScript to find and modify this element -->
+        <div id="message"></div>
+        
+        <!-- NAVIGATION: Link to view the results page -->
+        <p><a href="results.html">View Live Results</a></p>
+    </div>
+    
+    <!-- JAVASCRIPT: Load main.js which contains all the interactive functionality
+         Placed at end of body so HTML loads before JavaScript runs -->
+    <script src="main.js"></script>
+</body>
+</html>

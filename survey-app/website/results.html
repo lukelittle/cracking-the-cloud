@@ -1,0 +1,202 @@
+<!--
+results.html - Live Survey Results Display Page
+
+WHAT THIS FILE DOES:
+Displays a live bar chart showing vote counts for each survey option.
+Automatically refreshes every 3 seconds to show real-time results.
+
+KEY CONCEPTS FOR STUDENTS:
+1. Chart.js Library: Popular JavaScript library for creating interactive charts
+2. Canvas Element: HTML5 element for rendering graphics
+3. Auto-refresh: setInterval() function for periodic updates
+4. Dynamic Data: Chart updates without page reload
+5. CDN: Loading external libraries from Content Delivery Networks
+
+WORKFLOW:
+Page loads → Chart.js library loads → JavaScript fetches data from API →
+renderChart() creates/updates the chart → Repeats every 3 seconds for live updates
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- META TAGS -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Results</title>
+    
+    <!-- CHART.JS LIBRARY: Loaded from CDN (Content Delivery Network)
+         This creates the interactive bar chart visualization
+         Using a CDN means faster loading and automatic updates -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- CUSTOM STYLES: Link to our stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Live Survey Results</h1>
+        
+        <!-- CHART CONTAINER: Wrapper div for styling the chart area -->
+        <div class="chart-container">
+            <!-- CANVAS ELEMENT: Where Chart.js draws the chart
+                 Canvas is an HTML5 element for rendering 2D graphics -->
+            <canvas id="resultsChart"></canvas>
+        </div>
+        
+        <!-- NAVIGATION: Link back to voting page -->
+        <p><a href="index.html">Back to Survey</a></p>
+    </div>
+    
+    <!-- LOAD MAIN.JS: Contains shared functions like getResults() -->
+    <script src="main.js"></script>
+    
+    <!-- CHART CONFIGURATION AND AUTO-REFRESH LOGIC -->
+    <script>
+        /*
+         * CHART RENDERING FUNCTION
+         * This function is called from main.js after fetching data from the API
+         */
+        
+        // Global variable to store the chart instance
+        // This allows us to update it without creating a new chart each time
+        let resultsChart;
+        
+        function renderChart(data) {
+            // Get the canvas element where we'll draw the chart
+            const ctx = document.getElementById('resultsChart').getContext('2d');
+            
+            // IF CHART EXISTS: Just update the data (more efficient than recreating)
+            if (resultsChart) {
+                // Update the data array with new vote counts
+                resultsChart.data.datasets[0].data = [data.no, data.aws, data.other];
+                // Trigger chart to re-render with new data
+                resultsChart.update();
+                return;  // Exit function - we're done
+            }
+            
+            // IF CHART DOESN'T EXIST: Create it for the first time
+            resultsChart = new Chart(ctx, {
+                type: 'bar',  // Bar chart (could also be 'line', 'pie', etc.)
+                
+                // DATA CONFIGURATION
+                data: {
+                    // X-axis labels for each bar
+                    labels: ['No', 'Yes (AWS)', 'Yes (Other)'],
+                    
+                    datasets: [{
+                        label: '# of Votes',  // Label for the dataset
+                        // Y-axis values (vote counts for each option)
+                        data: [data.no, data.aws, data.other],
+                        
+                        // UNCC COLORS: Using university brand colors
+                        backgroundColor: [
+                            '#802F2D', // Clay Red
+                            '#A49665', // Niner Gold
+                            '#899064'  // Pine Green
+                        ],
+                        borderColor: [
+                            '#FFFFFF',  // White borders around bars
+                            '#FFFFFF',
+                            '#FFFFFF'
+                        ],
+                        borderWidth: 1  // 1 pixel border
+                    }]
+                },
+                
+                // CHART OPTIONS: Customize appearance and behavior
+                options: {
+                    responsive: true,  // Chart resizes with window
+                    maintainAspectRatio: true,  // Keep proportions
+                    
+                    scales: {
+                        // Y-AXIS (Vertical): Shows vote counts
+                        y: {
+                            beginAtZero: true,  // Always start at 0
+                            ticks: { 
+                                color: '#101820',  // Ore Black text color
+                                stepSize: 1,  // Count by 1s
+                                precision: 0,  // No decimal places
+                                font: {
+                                    size: 14,
+                                    weight: 'bold'
+                                }
+                            },
+                            grid: { 
+                                color: 'rgba(0, 0, 0, 0.1)',  // Semi-transparent black
+                                lineWidth: 1
+                            },
+                            title: {
+                                display: false,
+                                text: 'Number of Votes',
+                                color: '#101820',  // Ore Black
+                                font: {
+                                    size: 16,
+                                    weight: 'bold'
+                                },
+                                padding: 10
+                            }
+                        },
+                        
+                        // X-AXIS (Horizontal): Shows vote options
+                        x: {
+                            ticks: { 
+                                color: '#101820',  // Ore Black text color
+                                font: {
+                                    size: 14,
+                                    weight: 'bold'
+                                }
+                            },
+                            grid: { 
+                                display: false  // Hide vertical grid lines
+                            },
+                            title: {
+                                display: false,
+                                text: 'Cloud Experience',
+                                color: '#101820',  // Ore Black
+                                font: {
+                                    size: 16,
+                                    weight: 'bold'
+                                },
+                                padding: 10
+                            }
+                        }
+                    },
+                    
+                    plugins: {
+                        legend: {
+                            display: false  // Hide the legend (we only have one dataset)
+                        },
+                        // TOOLTIP: Shows when hovering over bars
+                        tooltip: {
+                            enabled: true,
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            titleFont: {
+                                size: 14,
+                                weight: 'bold'
+                            },
+                            bodyFont: {
+                                size: 13
+                            },
+                            padding: 12,
+                            displayColors: true
+                        }
+                    }
+                }
+            });
+        }
+        
+        /*
+         * AUTO-REFRESH LOGIC
+         * Fetches new data every 3 seconds to keep results current
+         */
+        
+        // Initial load - fetch and display results immediately
+        getResults();
+        
+        // Set up automatic refresh
+        // setInterval() calls getResults() every 3000 milliseconds (3 seconds)
+        // This creates the "live updating" effect
+        setInterval(getResults, 3000);
+    </script>
+</body>
+</html>

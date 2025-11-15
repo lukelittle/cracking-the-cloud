@@ -1,0 +1,57 @@
+<!--
+reset.html - Admin Page for Resetting Survey Data
+
+WHAT THIS FILE DOES:
+Provides an admin interface to delete all survey votes from the database.
+This is a destructive operation that cannot be undone.
+
+KEY CONCEPTS FOR STUDENTS:
+1. Destructive Operations: How to implement "dangerous" actions safely
+2. User Confirmation: JavaScript confirm() dialog for user verification
+3. Feedback Messages: Displaying success/error messages to users
+4. Administrative Functions: Separating admin tools from user interfaces
+
+SECURITY NOTE:
+In a production app, this page would require authentication/authorization.
+Anyone with the URL can currently reset the survey!
+
+WORKFLOW:
+Admin visits page → Clicks reset button → JavaScript shows confirmation dialog →
+If confirmed, calls resetSurvey() in main.js → API deletes all data → Shows result
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset Survey</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- PAGE TITLE -->
+        <h1>Reset Survey Data</h1>
+        
+        <!-- WARNING MESSAGE: Clear indication this is a destructive action
+             Using <p> tag for semantic HTML (this is a paragraph of text) -->
+        <p>Warning: This action will permanently delete all survey votes.</p>
+        
+        <!-- RESET BUTTON: Calls resetSurvey() function from main.js
+             The function includes a confirmation dialog to prevent accidents -->
+        <button class="vote-btn" onclick="resetSurvey()">Reset Survey</button>
+        
+        <!-- MESSAGE DIV: JavaScript updates this with success/error messages
+             Same pattern as used in index.html for consistency -->
+        <div id="message"></div>
+        
+        <!-- NAVIGATION LINKS: Pipe character (|) creates visual separator -->
+        <p>
+            <a href="index.html">Back to Survey</a> | 
+            <a href="results.html">View Results</a>
+        </p>
+    </div>
+
+    <!-- JAVASCRIPT: Load main.js which contains the resetSurvey() function -->
+    <script src="main.js"></script>
+</body>
+</html>

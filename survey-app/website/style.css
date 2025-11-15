@@ -1,0 +1,164 @@
+/*
+ * style.css - Stylesheet for Survey Application
+ *
+ * WHAT THIS FILE DOES:
+ * Defines the visual appearance of all pages in the survey application.
+ * Uses UNCC (University of North Carolina at Charlotte) brand colors.
+ *
+ * KEY CONCEPTS FOR STUDENTS:
+ * 1. CSS Selectors: Targeting HTML elements to style
+ * 2. Box Model: margin, padding, border
+ * 3. Flexbox/Centering: Creating responsive layouts
+ * 4. Pseudo-classes: :hover, :disabled for interactive states
+ * 5. Responsive Design: @media queries for mobile devices
+ * 6. Transitions: Smooth animations on hover
+ *
+ * UNCC BRAND COLORS USED:
+ * - Charlotte Green: #005035 (primary brand color)
+ * - Ore Black: #101820 (text color)
+ * - Quartz White: #FFFFFF (backgrounds)
+ * - Niner Gold: #A49665 (accent color)
+ */
+
+/* ===========================================
+   BODY (Overall Page Styling)
+   =========================================== */
+body {
+    /* Font family with fallbacks
+       If Calluna isn't available, try Interstate, then Cambria, etc. */
+    font-family: "Calluna", "Interstate", "Cambria", "Arial Narrow", sans-serif;
+    
+    /* Colors */
+    background-color: #FFFFFF; /* White background for entire page */
+    color: #101820; /* Ore Black text color for readability */
+    
+    /* Spacing */
+    margin: 0;  /* Remove default browser margins */
+    padding: 20px;  /* Add space around edges of page */
+    
+    /* Layout */
+    text-align: center;  /* Center all text by default */
+}
+
+/* ===========================================
+   HEADINGS
+   =========================================== */
+h1 {
+    /* Use Charlotte Green for main headings */
+    color: #005035;
+}
+
+/* ===========================================
+   CONTAINER (Main Content Area)
+   =========================================== */
+.container {
+    /* Width constraints */
+    max-width: 600px;  /* Don't get wider than 600px */
+    margin: auto;  /* Center horizontally (auto left/right margins) */
+    
+    /* Background and spacing */
+    background: #FFFFFF;  /* Quartz White background */
+    padding: 20px;  /* Space inside the container */
+    
+    /* Visual styling */
+    border-radius: 8px;  /* Rounded corners (8px radius) */
+    
+    /* Box shadow creates depth effect
+       Format: horizontal vertical blur spread color */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);  /* Subtle shadow */
+}
+
+/* ===========================================
+   VOTE BUTTONS
+   =========================================== */
+.vote-btn {
+    /* Colors */
+    background-color: #005035;  /* Charlotte Green background */
+    color: #FFFFFF;  /* Quartz White text */
+    
+    /* Remove default button styling */
+    border: none;
+    
+    /* Spacing - Creates button size */
+    padding: 15px 30px;  /* 15px top/bottom, 30px left/right */
+    margin: 10px;  /* Space between buttons */
+    
+    /* Visual styling */
+    border-radius: 5px;  /* Slightly rounded corners */
+    cursor: pointer;  /* Show hand cursor on hover */
+    
+    /* Typography */
+    font-size: 16px;
+    
+    /* Animation - Smooth color transition on hover
+       Format: property duration timing-function */
+    transition: background-color 0.3s;  /* 0.3 second color change */
+}
+
+/* HOVER STATE: Changes when mouse is over button
+   Pseudo-class selector (:hover) */
+.vote-btn:hover {
+    background-color: #003927;  /* Darker green on hover */
+}
+
+/* DISABLED STATE: Styling for disabled buttons
+   Pseudo-class selector (:disabled) - applied when button.disabled = true */
+.vote-btn:disabled {
+    background-color: #A49665;  /* Niner Gold when disabled */
+    cursor: not-allowed;  /* Show "not allowed" cursor */
+}
+
+/* ===========================================
+   MESSAGE DIV (Feedback Messages)
+   =========================================== */
+#message {
+    /* ID selector (#) - targets element with id="message" */
+    margin-top: 20px;  /* Space above message */
+    font-size: 18px;  /* Slightly larger text for visibility */
+}
+
+/* ===========================================
+   LINKS
+   =========================================== */
+a {
+    /* Element selector - targets all <a> tags */
+    color: #005035;  /* Charlotte Green */
+    text-decoration: none;  /* Remove default underline */
+}
+
+/* HOVER STATE for links */
+a:hover {
+    text-decoration: underline;  /* Add underline on hover */
+}
+
+/* ===========================================
+   RESPONSIVE DESIGN (Mobile Devices)
+   =========================================== */
+/* Media query: Apply these styles only on screens 600px wide or smaller
+   This makes the site mobile-friendly */
+@media (max-width: 600px) {
+    .vote-btn {
+        display: block;  /* Make buttons block-level elements */
+        width: 100%;  /* Full width of container */
+        margin: 10px 0;  /* Vertical margins only */
+        
+        /* EFFECT: Buttons stack vertically on mobile devices
+           instead of sitting side-by-side */
+    }
+}
+
+/*
+ * CSS BEST PRACTICES DEMONSTRATED:
+ * 
+ * 1. Comments: Explain what each section does
+ * 2. Organization: Group related styles together
+ * 3. Naming: Use descriptive class names (vote-btn, not btn1)
+ * 4. Specificity: Use appropriate selectors (class vs id vs element)
+ * 5. Responsive: Include mobile-friendly breakpoints
+ * 6. Accessibility: Good contrast ratios, cursor indicators
+ * 7. User Experience: Hover states, transitions, disabled states
+ * 
+ * DEBUGGING TIP:
+ * Use browser Developer Tools (F12) → Inspect Element
+ * to see which CSS rules are applied to each element
+ */
