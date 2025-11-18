@@ -36,6 +36,24 @@ renderChart() creates/updates the chart → Repeats every 3 seconds for live upd
     <div class="container">
         <h1>Live Survey Results</h1>
         
+        <!-- TOTAL VOTE COUNTER: Shows total participation -->
+        <div id="totalVotes" style="font-size: 20px; font-weight: bold; margin: 20px 0; color: #005035;">
+            Total Votes: 0
+        </div>
+        
+        <!-- VOTE BREAKDOWN: Shows individual counts for each option -->
+        <div id="voteBreakdown" style="margin: 20px 0; text-align: left; max-width: 400px; margin-left: auto; margin-right: auto;">
+            <div style="margin: 10px 0; padding: 10px; background: #f5f5f5; border-radius: 5px;">
+                <strong>No:</strong> <span id="countNo">0</span> votes
+            </div>
+            <div style="margin: 10px 0; padding: 10px; background: #f5f5f5; border-radius: 5px;">
+                <strong>Yes (on AWS):</strong> <span id="countAWS">0</span> votes
+            </div>
+            <div style="margin: 10px 0; padding: 10px; background: #f5f5f5; border-radius: 5px;">
+                <strong>Yes (on another platform):</strong> <span id="countOther">0</span> votes
+            </div>
+        </div>
+        
         <!-- CHART CONTAINER: Wrapper div for styling the chart area -->
         <div class="chart-container">
             <!-- CANVAS ELEMENT: Where Chart.js draws the chart
@@ -64,6 +82,18 @@ renderChart() creates/updates the chart → Repeats every 3 seconds for live upd
         function renderChart(data) {
             // Get the canvas element where we'll draw the chart
             const ctx = document.getElementById('resultsChart').getContext('2d');
+            
+            // UPDATE NUMERICAL DISPLAYS: Show vote counts as text
+            // Calculate total votes
+            const total = data.no + data.aws + data.other;
+            
+            // Update total vote counter
+            document.getElementById('totalVotes').textContent = `Total Votes: ${total}`;
+            
+            // Update individual vote counts
+            document.getElementById('countNo').textContent = data.no;
+            document.getElementById('countAWS').textContent = data.aws;
+            document.getElementById('countOther').textContent = data.other;
             
             // IF CHART EXISTS: Just update the data (more efficient than recreating)
             if (resultsChart) {
