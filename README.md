@@ -2,7 +2,7 @@
 
 A serverless survey application built with AWS services to demonstrate modern cloud architecture patterns and full-stack development.
 
-![Architecture Diagram](diagram.png)
+![Architecture Diagram](diagram.png?v=2)
 
 ## 🎯 Overview
 
